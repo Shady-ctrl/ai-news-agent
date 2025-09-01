@@ -1,0 +1,7 @@
+torch
+transformers
+tensorflow
+tf-keras
+numpy<2
+matplotlib
+feedparser
