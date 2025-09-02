@@ -126,6 +126,20 @@ Perfect for:
 - **Adaptive Learning**: Improves recommendations over time
 - **Performance Metrics**: Tracks success rates and user satisfaction
 - **Error Handling**: Robust error recovery and logging
+ 
+## 📸 Usage Examples
+
+**Agent Startup**  
+![Agent Boot](Screenshots/agentboot.jpg)
+
+**Email HTML Preview**  
+![Email HTML](Screenshots/email.jpg)
+
+**Fetch Command Output**  
+![Fetch Output](Screenshots/fetch.jpg)
+
+**send_email Command Output**  
+![Email Dispatch Log](Screenshots/mailOutput.jpg)
 
 ## 🔒 Privacy & Security
 
