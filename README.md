@@ -141,6 +141,7 @@ Perfect for:
 **send_email Command Output**  
 ![Email Dispatch Log](Screenshots/mailOutput.jpg)
 
+
 ## 🔒 Privacy & Security
 
 - Environment variables for sensitive data
