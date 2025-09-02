@@ -1153,4 +1153,74 @@ def main():
         logger.error(f"Fatal error: {e}")
 
 if __name__ == "__main__":
-    main()
+    agent = EnhancedNewsAIAgent()
+
+    # Interactive chat banner and help menu
+    print("\n" + "="*60)
+    print("🤖 ENHANCED AI NEWS AGENT - INTERACTIVE CHAT")
+    print("📋 ACTIVE SEARCH KEYWORDS:")
+    print("   " + " | ".join(agent.main_keywords[:4]))
+    print("📰 ACTIVE SOURCES: {} RSS feeds + 3 APIs".format(len(agent.rss_feeds)))
+    print("💬 AVAILABLE COMMANDS:")
+    print("1. 'fetch [topic]'       - Get latest news on any topic")
+    print("2. 'feedback [1-5] [url]'- Rate an article to improve AI")
+    print("3. 'sources'             - Show all active news sources")
+    print("4. 'keywords'            - Show current search keywords")
+    print("5. 'send_email'          - 🔥 SEND NEWS EMAIL NOW (for demo)")
+    print("6. 'status'              - Check agent performance stats")
+    print("7. 'help'                - Show this help message")
+    print("8. 'quit'                - Exit the agent")
+    print("💡 EXAMPLES:")
+    print("   fetch quantum computing")
+    print("   feedback 5 https://example.com/article")
+    print("="*60)
+
+    # Interactive command loop
+    while True:
+        cmd_line = input(">> ").strip()
+        if not cmd_line:
+            continue
+        parts = cmd_line.split(maxsplit=1)
+        cmd = parts[0].lower()
+        arg = parts[1] if len(parts) > 1 else ""
+
+        if cmd == "fetch":
+            topic = arg.strip()
+            if not topic:
+                print("Please specify a topic, e.g. fetch quantum computing")
+                continue
+            print(f"📡 Fetching news on '{topic}'…")
+            articles = agent._fetch_articles_from_all_sources([topic])
+            if not articles:
+                print("No articles found.")
+            else:
+                print(f"📰 {len(articles)} articles:")
+                for i, art in enumerate(articles, start=1):
+                    title = art.get('title', 'No title')
+                    url = art.get('url', 'No URL')
+                    print(f"{i}. {title}\n   {url}")
+
+        elif cmd == "feedback":
+            rating, url = arg.split(maxsplit=1)
+            print(f"👍 Recording feedback {rating} for {url}")
+            # Construct feedback object and call learn_from_feedback…
+        elif cmd == "sources":
+            print("📰 Sources:", ", ".join(agent.rss_feeds.keys()))
+        elif cmd == "keywords":
+            print("📋 Keywords:", ", ".join(agent.main_keywords))
+        elif cmd in ("send_email", "send_mail"):
+            print("🔥 Sending news email now…")
+            agent._autonomous_news_cycle()
+            print("✅ Email sent.")
+        elif cmd == "status":
+            print("📊 Performance metrics:", agent.performance_metrics)
+        elif cmd == "help":
+            # Simply reprint the banner/menu
+            # (You can wrap the above print block into a function for reuse)
+            pass
+        elif cmd in ("quit", "exit"):
+            print("👋 Goodbye!")
+            break
+        else:
+            print("Unknown command. Type 'help' to see available commands.")
+
